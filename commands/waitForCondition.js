@@ -51,8 +51,8 @@ CommandAction.prototype.check = function() {
         if (result.status === 0 && result.value !== 'undefined') {
             setTimeout(function() {
                 var msg = self.messages.success + (now - self.startTimer) + ' milliseconds.';
-                self.cb.call(self.client.api, result.value);
-                self.client.assertion(true, !!result.value, false, msg, true);
+                self.cb.call(self.client.__api, result.value);
+                self.client.__api.assert.equal(true, !!result.value, msg);
                 return self.emit('complete');
             }, self.timeout);
         } else if (now - self.startTimer < self.ms) {
@@ -61,8 +61,8 @@ CommandAction.prototype.check = function() {
             }, 500);
         } else {
             var msg = self.messages.timeout + self.ms + ' milliseconds.';
-            self.cb.call(self.client.api, false);
-            self.client.assertion(false, false, false, msg, true);
+            self.cb.call(self.client.__api, false);
+            self.client.__api.assert.equal(true, false, msg);
             return self.emit('complete');
         }
     });
