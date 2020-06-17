@@ -45,7 +45,7 @@ CommandAction.prototype.command = function(condition, milliseconds, timeout, mes
 CommandAction.prototype.check = function() {
     var self = this;
 
-    this.client.execute.call(this.client, this.condition, function(result) {
+    this.client.__api.execute.call(this.client, this.condition, function(result) {
         var now = new Date().getTime();
 
         if (result.status === 0 && result.value !== 'undefined') {
