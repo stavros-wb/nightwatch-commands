@@ -7,7 +7,6 @@ var CommandAction = function() {
     this.cb = null;
     this.ms = null;
     this.selector = null;
-    this.protocol = require('nightwatch/lib/api/protocol.js')(this.client);
 };
 
 util.inherits(CommandAction, events.EventEmitter);
@@ -46,7 +45,7 @@ CommandAction.prototype.command = function(condition, milliseconds, timeout, mes
 CommandAction.prototype.check = function() {
     var self = this;
 
-    this.protocol.execute.call(this.client, this.condition, function(result) {
+    this.client.execute.call(this.client, this.condition, function(result) {
         var now = new Date().getTime();
 
         if (result.status === 0 && result.value !== 'undefined') {
