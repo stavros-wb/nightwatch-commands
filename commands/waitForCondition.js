@@ -48,7 +48,7 @@ CommandAction.prototype.check = function() {
     this.client.__api.execute.call(this.client, this.condition, function(result) {
         var now = new Date().getTime();
 
-        if (result.status === 0 && result.value !== 'undefined') {
+        if (result.status === 0 && !!result.value) {
             setTimeout(function() {
                 var msg = self.messages.success + (now - self.startTimer) + ' milliseconds.';
                 self.cb.call(self.client.__api, result.value);
